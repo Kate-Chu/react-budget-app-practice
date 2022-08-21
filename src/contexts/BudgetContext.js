@@ -38,6 +38,13 @@ export const BudgetsProvider = ({ children }) => {
   }
 
   function deleteBudget({ id }) {
+    setExpenses((prev) => {
+      return prev.map((expense) => {
+        if (expense.budgetId !== id) return expense;
+        return { ...expense, budgetId: UNCATEGORIZED_BUDGET_ID };
+      });
+    });
+
     setBudgets((prev) => {
       return prev.filter((budget) => budget.id !== id);
     });
